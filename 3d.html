@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>3D Rotating Cube - Three.js</title>
+
+  <style>
+
+    body{
+      margin:0;
+      overflow:hidden;
+      background:black;
+      font-family:Arial, sans-serif;
+    }
+
+    .title{
+      position:absolute;
+      top:15px;
+      left:15px;
+      background:#111;
+      color:white;
+      padding:10px 15px;
+      border-radius:8px;
+      font-size:20px;
+      z-index:10;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="title">
+    3D Rotating Cube - Three.js
+  </div>
+
+  <!-- Three.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+  <script>
+
+    // Scene
+    const scene = new THREE.Scene();
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({
+      antialias:true
+    });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    document.body.appendChild(renderer.domElement);
+
+    // Geometry
+    const geometry = new THREE.BoxGeometry();
+
+    // Material
+    const material = new THREE.MeshStandardMaterial({
+      color:0x00ffaa
+    });
+
+    // Cube
+    const cube = new THREE.Mesh(geometry, material);
+
+    scene.add(cube);
+
+    // Light
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+
+    light.position.set(2,2,5);
+
+    scene.add(light);
+
+    // Camera Position
+    camera.position.z = 3;
+
+    // Animation
+    function animate(){
+
+      requestAnimationFrame(animate);
+
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Responsive Resize
+    window.addEventListener("resize", () => {
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+  </script>
+
+</body>
+</html>
