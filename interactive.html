@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Move Object with Keyboard</title>
+
+  <style>
+
+    body{
+      margin:0;
+      padding:0;
+      background:#f4e7ec;
+      font-family:Arial, sans-serif;
+      text-align:center;
+    }
+
+    h1{
+      color:#cc2f7a;
+      margin-top:20px;
+      font-size:50px;
+      font-weight:bold;
+    }
+
+    canvas{
+      background:#ead4dc;
+      border:5px solid #cc8bb0;
+      margin-top:20px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <h1>Move the Object with Keyboard</h1>
+
+  <canvas id="gameCanvas" width="900" height="800"></canvas>
+
+  <script>
+
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Moving Square
+    let squareX = 250;
+    let squareY = 400;
+
+    const size = 100;
+    const speed = 10;
+
+    // Keyboard Controls
+    document.addEventListener("keydown", moveObject);
+
+    function moveObject(e){
+
+      if(e.key === "ArrowUp"){
+        squareY -= speed;
+      }
+
+      if(e.key === "ArrowDown"){
+        squareY += speed;
+      }
+
+      if(e.key === "ArrowLeft"){
+        squareX -= speed;
+      }
+
+      if(e.key === "ArrowRight"){
+        squareX += speed;
+      }
+
+      drawShapes();
+    }
+
+    // Draw All Shapes
+    function drawShapes(){
+
+      // Clear Canvas
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      // Blue Circle
+      ctx.beginPath();
+      ctx.fillStyle = "blue";
+      ctx.arc(180,180,80,0,Math.PI*2);
+      ctx.fill();
+
+      // Red Triangle
+      ctx.beginPath();
+      ctx.fillStyle = "red";
+      ctx.moveTo(600,80);
+      ctx.lineTo(500,280);
+      ctx.lineTo(700,280);
+      ctx.closePath();
+      ctx.fill();
+
+      // Green Square
+      ctx.fillStyle = "green";
+      ctx.fillRect(610,120,160,160);
+
+      // Moving Pink Square
+      ctx.fillStyle = "pink";
+      ctx.fillRect(squareX,squareY,size,size);
+    }
+
+    // Initial Draw
+    drawShapes();
+
+  </script>
+
+</body>
+</html>
